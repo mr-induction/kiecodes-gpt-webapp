@@ -16,7 +16,7 @@ app = FastAPI()
 app.add_middleware(
     CORSMiddleware,
     allow_origins=[
-        "http://localhost:3001",  # used to run with react server
+        "https://kiecodes-gpt-webapp.vercel.app",  # used to run with react server
     ],
     allow_credentials=True,
     allow_methods=["*"],
