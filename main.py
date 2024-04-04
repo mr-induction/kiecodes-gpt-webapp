@@ -9,12 +9,16 @@ from openai.types.beta.threads.run_submit_tool_outputs_params import ToolOutput
 from pydantic import BaseModel
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
+from dotenv import load_dotenv
+import os
+
+load_dotenv()
+openai_api_key = os.getenv("OPENAI_API_KEY")
 
 app = FastAPI()
 
 origins = [
     "https://kiecodes-gpt-webapp.vercel.app",
-    "https://main--esotericagrimoire.netlify.app",
     "http://localhost:3000",
     "http://localhost:3001",
     "http://localhost:3002",
@@ -30,11 +34,10 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-client = AsyncOpenAI(
-    api_key="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",
-)
+client = AsyncOpenAI(api_key=openai_api_key)
 assistant_id = "asst_cW9s3A0A2o1ws3mi8XwClXwJ"
 run_finished_states = ["completed", "failed", "cancelled", "expired", "requires_action"]
+
 
 class RunStatus(BaseModel):
     run_id: str
