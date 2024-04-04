@@ -6,12 +6,17 @@ from openai.types.beta.threads.run import RequiredAction, LastError
 from openai.types.beta.threads.run_submit_tool_outputs_params import ToolOutput
 from pydantic import BaseModel
 from fastapi.middleware.cors import CORSMiddleware
+from dotenv import load_dotenv
+
+# Load environment variables from .env file
+load_dotenv()
+
 
 app = FastAPI()
 app.add_middleware(
     CORSMiddleware,
     allow_origins=[
-        "http://localhost:3000",  # used to run with react server
+        "http://localhost:3001",  # used to run with react server
     ],
     allow_credentials=True,
     allow_methods=["*"],
@@ -19,9 +24,9 @@ app.add_middleware(
 )
 
 client = AsyncOpenAI(
-    api_key="<YOUR-API-KEY-HERE>",
+    api_key=os.getenv("OPENAI_API_KEY"),
 )
-assistant_id = "<YOUR-ASSISTANT-ID-HERE>"
+assistant_id = "asst_cW9s3A0A2o1ws3mi8XwClXwJ"
 run_finished_states = ["completed", "failed", "cancelled", "expired", "requires_action"]
 
 
